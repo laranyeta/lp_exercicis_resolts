@@ -16,6 +16,7 @@ public:
 	void sort();
 
 	T& operator[](int nIndex);
+	const T& operator[](int nIndex) const;
 	Vector<T>& operator=(const Vector<T>& v);
 
 private:
@@ -100,6 +101,19 @@ void Vector<T>::sort()
 
 template<class T>
 T& Vector<T>::operator[](int nIndex)
+{
+	//per poder accedir a qualsevol element de l'array dinamic
+    if (nIndex >= 0 && nIndex < m_nElements)
+	    return m_vector[nIndex];
+	else
+	{
+	    cout << "ERROR! Index fora de limit.";
+	    return m_valorDefecte;
+	}
+}
+
+template<class T>
+const T& Vector<T>::operator[](int nIndex) const
 {
 	//per poder accedir a qualsevol element de l'array dinamic
     if (nIndex >= 0 && nIndex < m_nElements)
