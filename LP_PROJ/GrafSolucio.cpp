@@ -118,11 +118,12 @@ void GrafSolucio::dijkstra(int node1, int node2, vector<double>& distancia, vect
 {
 	//inicialitzem les distancies per cada node amb els seu respectius veins
 	distancia.resize(m_nNodes, DISTANCIA_MAXIMA);
-	anterior.resize(m_nNodes, -1);
+	
 	vector<bool> visitat;
 	visitat.resize(m_nNodes, false);
 	//inicialitzem els nodes visitats a false
-	
+	anterior.resize(m_nNodes, -1);
+
 	distancia[node1] = 0;
 	anterior[node1] = node1;
 
@@ -134,18 +135,24 @@ void GrafSolucio::dijkstra(int node1, int node2, vector<double>& distancia, vect
 		if (posVeiActual != -1)
 		{
 			visitat[posVeiActual] = true;
-			if (posVeiActual != node2)
+			if (posVeiActual == node2)
 				return;
 			//on j es l'iterador per recorrer les columnes de la fila posVeiActual
 			for (int j = 0; j < m_nNodes; j++)
-				if (m_matriuAdj[posVeiActual][j] != 0)
-					 //si hi ha una aresta
+			{
+			    if (m_matriuAdj[posVeiActual][j] != 0)
+			    {
+			        //si hi ha una aresta
 					if (!visitat[j]) //si no hem visitat el vei j del vei actual posVeiActual
 						if (distancia[posVeiActual] + m_matriuAdj[posVeiActual][j] < distancia[j])
 						{
 							distancia[j] = distancia[posVeiActual] + m_matriuAdj[posVeiActual][j];
 							anterior[j] = posVeiActual;
 						}
+			    }
+					 
+			}
+			
 							
 		}
 	}
